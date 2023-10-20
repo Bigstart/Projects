@@ -1,11 +1,11 @@
 /*
-		 A
-		/ \
-	   B   C
-	  /   / \
-	 D   E   F
-	  \     /
-	   G   H
+             A
+           /    \
+	  B      C
+	/       /  \
+       D       E    F
+	\          /
+	  G       H
 先序遍历   结果是A B D G C E F H
 */
 
