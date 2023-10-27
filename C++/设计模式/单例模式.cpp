@@ -1,3 +1,4 @@
+//保证一个类仅有一个实例，并提供一个访问它的全局访问点，该实例被所有程序模块共享
 #include <iostream>
 
 class Singleton
