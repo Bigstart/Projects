@@ -318,4 +318,35 @@ myVector.clear();
 cout << myVector.size() << endl; // 0
 ```
 
-## 
+## 使用迭代器遍历vector
+三种方式
+### 第一种
+```cpp
+vector<int> myVector = {100,200,300,400,500,600 };
+for(vector<int>::iterator it = myVector.begin();it != myVector.end(); it++)
+{
+	cout<< *it << " ";
+}
+```
+
+### 第二种    
+for(int it:myVector){},这里需要指定myVector中元素的类型
+这里it不是迭代器，而是一个复制了容器元素的拷贝
+```cpp
+vector<int> myVector = { 100,200,300,400,500,600 };
+for(int it:myVector)
+{
+	cout<< it << " ";
+}
+```
+
+### 第三种
+for(auto it:myVector){} 这里直接使用auto，不需要根据myVector中元素的类型改变
+这里it不是迭代器，而是一个复制了容器元素的拷贝
+```cpp
+vector<int> myVector = { 100,200,300,400,500,600 };
+for(auto it:myVector)
+{
+	cout<< it << " ";
+}
+```
