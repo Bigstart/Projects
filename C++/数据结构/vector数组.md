@@ -3,9 +3,12 @@
 ## 一、创建vector对象
 格式：   vector<数据类型> 名字
 例如：
+```cpp
     vector<int> myVector;  //存储整数的
 	vector<char> myVector; //存储字符的
 	vector<string> myVector;  ////存储字符串的
+```
+
 
 ## 二、初始化一维vector对象
 ### 1 vector<int> myVector
