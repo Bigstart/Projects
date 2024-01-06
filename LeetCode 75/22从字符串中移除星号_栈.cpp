@@ -37,24 +37,18 @@ s 可以执行上述操作
 using namespace std;
 
 string removeStars(string s) {
-	stack<int>st;
-
-	for (int i = 0; i < s.length(); ++i) {
-		if (s[i] == '*' && !st.empty()) {
-			st.pop();
-		}
-		else if(s[i]!='*') {
-			st.push(i);
-		}
-	}
-
-	string result;
-	while (!st.empty()) {
-		result = s[st.top()]+ result;
-		st.pop();
-	}
-
-	return result;
+        string res;
+        for(auto ch:s){
+            if(ch=='*')
+            {
+                res.pop_back();   //移除字符串的最后一个字符
+            }
+            else{
+                res.push_back(ch);  //将一个字符添加到字符串的末尾。
+            }
+        }
+		//back(): 返回字符串最后一个字符，类似于查看栈顶元素但不移除它。
+        return res;
 }
 
 int main() {
