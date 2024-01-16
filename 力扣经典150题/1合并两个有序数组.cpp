@@ -46,6 +46,7 @@ void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
     //从后向前遍历  比较谁大谁放后面
     int i = m - 1, j = n - 1, k = m + n - 1;
     while (j >= 0) {
+        //如果j<0了 说明nums2的元素已经放完了    就直接结束循环
         if (i < 0 || nums2[j] > nums1[i]) {
             nums1[k--] = nums2[j--];
         }
