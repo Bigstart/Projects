@@ -39,9 +39,11 @@ int removeDuplicates(vector<int>& nums) {
         return 0;
     }
     int  j = 0;
+    //j是左指针 指向当前数  i是右指针 指向下一个进行判断
     for (int i = 1; i < nums.size(); i++) {
         if (nums[j] != nums[i]) {
             j++;
+            //如果不相等，左指针+1 进行赋值       
             nums[j] = nums[i];
         }
     }
