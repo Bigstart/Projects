@@ -25,8 +25,8 @@
 using namespace std;
 
 int removeElement(vector<int>& nums, int val) {
-    int j = 0; // 指示当前已经处理好的数组部分
-
+    int j = 0; 
+    //其实就是移动右指针  左指针的个数代表数组长度  右指针指向的进行判断
     for (int i = 0; i < nums.size(); ++i) {
         if (nums[i] != val) {
             nums[j] = nums[i]; // 将非val元素放入nums[j]的位置
@@ -34,7 +34,7 @@ int removeElement(vector<int>& nums, int val) {
         }
     }
 
-    return j; // j表示移除元素后的新长度
+    return j; 
 }
 
 int main() {
