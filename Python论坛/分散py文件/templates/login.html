@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <style>
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+          margin: 0;
+        }
+
+        .navbar {
+          background-color: #333;
+          overflow: hidden;
+          position: relative;
+          height: 80px;
+        }
+
+        .navbar a {
+          color: white;
+          display: inline-block;
+          padding: 14px 16px;
+          text-decoration: none;
+font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('routes.index') }}">论坛</a>
+
+        {% if current_user.is_authenticated %}
+        <a href="{{url_for('routes.logout')}}">退出</a>
+        {% else %}
+        <a href="{{url_for('routes.login')}}">登录</a>
+        <a href="{{url_for('routes.register')}}">注册</a>
+        {% endif %}
+    </nav>
+    {% if error %}
+        <div>{{ error }}</div>
+    {% endif %}
+    <form method="post" action="{{ url_for('routes.login') }}">
+        <div>
+            <label for="username">用户名</label>
+            <input type="text" name="username" required>
+        </div>
+        <div>
+            <label for="password">密码</label>
+            <input type="password" name="password" required>
+        </div>
+        <button type="submit">登录</button>
+    </form>
+</body>
+</html>
