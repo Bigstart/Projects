@@ -31,33 +31,19 @@ s 中 至少存在一个 单词
 using namespace std;
 
 string reverseWords(string s) {
-	//使用stringstream分割字符串
-	stringstream ss(s);
-	string word;
-	vector<string> words;
-
-	//将单词存储在vector中
-	while (ss >> word) {
-		words.push_back(word);
-	}
-
-	//反转单词顺序
-	int n = words.size();
-	for (int i = 0; i < n / 2; ++i) {
-		swap(words[i], words[n - i - 1]);
-	}
-
-	string reversed_str;
-	for (const string& w : words) {
-		reversed_str += w + " ";
-	}
-
-	//去除多余空格
-	if (!reversed_str.empty()) {
-		reversed_str.pop_back();//去除最后一个空格
-	}
-	return reversed_str;
-}
+        istringstream iss(s);
+        string word, result;
+        
+        // 从输入流中逐个读取单词，并将其拼接到结果字符串的开头
+        while (iss >> word) {
+            if (!result.empty()) {
+                result = " " + result; // 在单词之前添加一个空格
+            }
+            result = word + result;
+        }
+        
+        return result;
+    }
 
 int main() {
 	string s = "the sky is blue";
