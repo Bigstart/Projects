@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布新帖子</title>
+    <style>
+        .error {
+            border-color: red;
+        }
+    </style>
+    <script>
+        function checkMaxLength(inputElement, maxLength, errorMessageElement) {
+            if (inputElement.value.length > maxLength) {
+                inputElement.classList.add('error');
+                errorMessageElement.innerText = `长度过多，限制字数：${maxLength}`;
+            } else {
+                inputElement.classList.remove('error');
+                errorMessageElement.innerText = "";
+            }
+        }
+    </script>
+</head>
+<body>
+    <form method="post" action="{{ url_for('new_post') }}">
+        <div>
+            <label for="title">标题</label>
+            <input type="text" name="title" id="title" required oninput="checkMaxLength(this, 20, document.getElementById('title-error'))">
+            <span id="title-error" style="color: red;"></span>
+        </div>
+        <div>
+            <label for="content">内容</label>
+            <textarea name="content" id="content" required oninput="checkMaxLength(this, 200, document.getElementById('content-error'))"></textarea>
+            <span id="content-error" style="color: red;"></span>
+        </div>
+        <button type="submit">发布</button>
+    </form>
+</body>
+</html>
