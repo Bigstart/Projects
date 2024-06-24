@@ -39,6 +39,18 @@ int removeDuplicates(vector<int>& nums) {
         }
     }
     return count;
+
+
+    //int slow = 2, fast = 2;
+    //while (fast < n) {
+    //    if (nums[slow - 2] != nums[fast]) {
+    //        nums[slow] = nums[fast];
+    //        ++slow;
+    //    }
+    //    ++fast;
+    //}
+    //return slow;
+
 }
 
 int main() {
