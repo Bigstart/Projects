@@ -85,3 +85,42 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+//还有一种方法 是利用两个指针的    不是滑动窗口
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        // 字符串长度
+        int n = s.length();
+        if (n <= 1) {
+            return n;
+        }
+
+        int left = 0; // 左指针初始化
+        int right = 0; // 右指针初始化
+        unordered_set<char> table; // 用于存储字符的哈希集合
+        int res = 0; // 结果初始化
+        
+        // 遍历字符串
+        while (right < n) {
+            // 如果当前字符不在集合中，则加入集合并移动右指针
+            if (table.find(s[right]) == table.end()) {
+                table.insert(s[right]);
+                right++;
+                // 更新最长子串的长度
+                res = max(res, right - left);
+            } else {
+                // 如果当前字符已经在集合中，则移除左指针的字符并移动左指针
+                table.erase(s[left]);
+                left++;
+            }
+        }
+        
+        return res; // 返回结果
+    }
+};
