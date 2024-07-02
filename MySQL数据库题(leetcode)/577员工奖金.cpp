@@ -63,11 +63,11 @@ Bonus table:
 +------+-------+
 */
 
-```sql
+
+
 
 select name,bonus
 from Employee left join Bonus
 on Employee.EmpID = Bonus.EmpID
 where bonus is null or bonus < 1000
 
-```

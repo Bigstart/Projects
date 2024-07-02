@@ -1,4 +1,7 @@
 /*
+
+表: Person
+
 +-------------+---------+
 | 列名         | 类型     |
 +-------------+---------+
@@ -65,11 +68,9 @@ addressId = 1 包含了 personId = 2 的地址信息。
 
 //考虑到可能不是每个人都有地址信息，我们应该使用 outer join 而不是默认的 inner join。
 
-```sql
+
 
 select FirstName, LastName, City, State
 from Person left join Address
 on Person.PersonId = Address.PersonId
 ;
-
-```
