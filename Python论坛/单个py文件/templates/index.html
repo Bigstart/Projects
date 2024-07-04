@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论坛首页</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" href="{{ url_for('index') }}">论坛</a>
+        <ul class="navbar-nav">
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('logout')}}">退出</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('login')}}">登录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('register')}}">注册</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="container mt-3">
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <div class="d-flex flex-row-reverse mt-2">
+            <a href="{{ url_for('new_post') }}" class="btn btn-primary">发新帖</a>
+        </div>
+        {% endif %}
+        {% for post in posts %}
+        <div class="card mt-3">
+            <div class="card-header">
+                {{ post.title }}
+            </div>
+            <div class="card-body">
+                <p>{{ post.content }}</p>
+                <p class="text-muted">发帖人: {{ post.user.username }} | 发帖时间: {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                {% if post.user == current_user or current_user.is_admin %}
+                <form method="post" action="{{ url_for('delete_post', post_id=post.id) }}">
+                    <button type="submit" class="btn btn-danger btn-sm">删除帖子</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

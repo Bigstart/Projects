@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论坛首页</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <style>
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+          margin: 0;
+        }
+
+        .navbar {
+          background-color: #333;
+          overflow: hidden;
+          position: relative;
+          height: 80px;
+        }
+
+        .navbar a {
+          color: white;
+          display: inline-block;
+          padding: 14px 16px;
+          text-decoration: none;
+        }
+
+        <!--这里是用户个人资料的css-->
+        .navbar-right {    
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+        .container {
+          margin: 30px auto;
+          width: 80%;
+        }
+
+        .card {
+          background-color: #f1f1f1;
+          margin-bottom: 20px;
+          padding: 20px;
+        }
+
+        .card-header {
+          font-size: 24px;
+          font-weight: bold;
+        }
+
+        .text-muted {
+          color: #6c757d;
+        }
+
+        .flex-row-reverse {
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        .btn {
+          background-color: #007bff;
+          border: none;
+          color: white;
+          cursor: pointer;
+          display: inline-block;
+          font-size: 16px;
+          padding: 8px 16px;
+          text-align: center;
+          text-decoration: none;
+          transition: background-color .3s;
+        }
+
+        .btn:hover {
+          background-color: #0056b3;
+        }
+
+        .btn-danger {
+          background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+          background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('routes.index') }}">论坛</a>
+
+        {% if current_user.is_authenticated %}
+        <a href="{{url_for('routes.logout')}}">退出</a>
+        <a href="{{ url_for('routes.user_profile') }}">个人中心</a>
+        {% else %}
+        <a href="{{url_for('routes.login')}}">登录</a>
+        <a href="{{url_for('routes.register')}}">注册</a>
+        {% endif %}
+    </nav>
+    <div class="container">
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        {% if current_user.is_authenticated %}
+        <div class="flex-row-reverse mt-2">
+            <a href="{{ url_for('routes.new_post') }}" class="btn">发新帖</a>
+        </div>
+        {% endif %}
+
+        <h1>{{ user.username }}的个人中心</h1>
+        <h1>我的帖子：</h1>
+
+        {% for post in posts %}
+        <div class="card">
+            <div class="card-header">
+                {{ post.title }}
+            </div>
+            <div class="card-body">
+                <p>{{ post.content }}</p>
+                <p class="text-muted">发帖人: {{ post.user.username }} | 发帖时间: {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                {% if post.user == current_user or current_user.is_admin %}
+                <form method="post" action="{{ url_for('routes.delete_post', post_id=post.id) }}">
+                    <button type="submit" class="btn btn-danger">删除帖子</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
